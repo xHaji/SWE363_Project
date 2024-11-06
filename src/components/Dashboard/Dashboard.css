@@ -1,0 +1,55 @@
+/* src/components/Dashboard/Dashboard.css */
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: 1200px; /* Optional: to control maximum width */
+    margin: 0 auto; /* Center the dashboard content */
+  }
+  
+  /* Header Title */
+  .dashboard h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Metrics Section */
+  .metrics-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .metric-card {
+    flex: 1; /* Ensures all metric cards have equal width */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Chart Container */
+  .chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Job Postings Table Container */
+  .job-postings-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  

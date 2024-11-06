@@ -1,0 +1,25 @@
+/* src/components/Metrics/Metrics.css */
+.metric-card {
+  width: 150px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+  margin: 10px;
+  flex: 1; /* Flex to fill the row evenly */
+}
+
+.metric-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.green {
+  color: #4CAF50;
+}
+
+.red {
+  color: #F44336;
+}

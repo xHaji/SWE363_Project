@@ -1,0 +1,93 @@
+/* src/Login.css */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0 auto; /* Center the container horizontally */
+  }
+  
+  .logo {
+    margin-bottom: 20px;
+  }
+  
+  .logo-image {
+    width: 250px; /* Adjust the size as needed */
+  }
+  
+  h2 {
+    margin-bottom: 10px;
+    font-size: 28px;
+    color: #333;
+  }
+  
+  .subtitle {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #777;
+    max-width: 400px;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px; /* Set a fixed width to center the form */
+  }
+  
+  .login-form input {
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .cancel-button, .signin-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .cancel-button {
+    background-color: #f0f0f0;
+    color: #555;
+  }
+  
+  .signin-button {
+    background-color: #d4af37; /* Gold color for sign-in button */
+    color: white;
+  }
+  
+  .forgot-password {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .forgot-password a {
+    color: #d4af37;
+    text-decoration: none;
+  }
+  
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
+  
+  p a {
+    color: #d4af37; /* Gold color for the link */
+    text-decoration: none;
+  }
+  
+  p a:hover {
+    text-decoration: underline;
+  }
+  
