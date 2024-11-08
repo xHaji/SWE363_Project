@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './JobPosting.css';
-import Header from '../../assets/HeaderPhoto.png';
+import Banner from '../../assets/HeaderPhoto.png';
 
 const JobPosting = () => {
   const [jobDetails, setJobDetails] = useState({
@@ -31,8 +31,10 @@ const JobPosting = () => {
         </div>
         
       </div>
-      <div className="logo">
-          <img src={Header} alt="JobMatch Logo" className="logo-image" />
+
+
+      <div className="banner">
+          <img src={Banner} alt="JobMatch banner" className="banner" />
         </div>
 
 
