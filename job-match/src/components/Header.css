@@ -1,0 +1,266 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .left-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    height:40px; /* Adjust size as needed */
+    margin-right: 15px;
+  }
+  
+  .user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #000; /* Placeholder color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    margin-right: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .right-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .right-section .icon {
+    font-size: 18px; /* Adjust size as needed */
+    margin-left: 15px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .icon-dropdown {
+    margin-left: 5px; /* For spacing between icon and dropdown arrow */
+    
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .right-section .icon {
+    font-size: 18px; /* Adjust as needed */
+    margin-left: 15px;
+    cursor: pointer;
+  }
+  .icon {
+    cursor: pointer;
+    margin-right: 15px;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 50px; /* Adjust this value to position the menu under the bell icon */
+    right: 20px; /* Align with the bell icon */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    width: 300px; /* Adjust width as needed */
+    padding: 10px;/* Adjust width as needed */
+  }
+  
+  .dropdown-item {
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .mode-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  body.dark-mode {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  body.dark-mode .header {
+    background-color: #444;
+  }
+  
+  body.dark-mode .dropdown-menu {
+    background-color: #555;
+    border-color: #444;
+  }
+  .mode-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .toggle-button {
+    width: 50px;
+    height: 25px;
+    background-color: #ccc;
+    border-radius: 25px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .toggle-button.active {
+    background-color: #333;
+  }
+  
+  .toggle-circle {
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2.5px;
+    left: 3px;
+    transition: transform 0.3s;
+  }
+  
+  .toggle-button.active .toggle-circle {
+    transform: translateX(25px); /* Move circle to the right */
+  }
+ 
+  
+  .dropdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+  }
+  
+  .arrow-icon {
+    transition: transform 0.3s;
+  }
+  
+  .arrow-icon.open {
+    transform: rotate(90deg);
+  }
+  
+  .region-list {
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    padding-top: 5px;
+  }
+  
+  .region-item {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .region-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .mode-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .toggle-button {
+    width: 50px;
+    height: 25px;
+    background-color: #ccc;
+    border-radius: 25px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .toggle-button.active {
+    background-color: #333;
+  }
+  
+  .toggle-circle {
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2.5px;
+    left: 3px;
+    transition: transform 0.3s;
+  }
+  
+  .toggle-button.active .toggle-circle {
+    transform: translateX(25px); /* Move circle to the right */
+  }
+  .notification-menu {
+    position: absolute;
+    top: 50px; /* Adjust this value to position the menu under the bell icon */
+    right: 20px; /* Align with the bell icon */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    width: 300px; /* Adjust width as needed */
+    padding: 10px;
+  }
+  
+  .notification-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .notification-item:last-child {
+    border-bottom: none;
+  }
+  
+  .notification-item strong {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .notification-item p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+  .notification-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .notification-button:hover {
+    background-color: #218838;
+  }
+       
+  
