@@ -12,7 +12,7 @@ const App = () => (
     <main>
       <Header />
       <div className="content">
-        <div className="banner">Banner Image</div>
+        <div className="banner" ><img src="\front.jpg" alt="front" className="front" /></div>
         <Search />
       </div>
     </main>
