@@ -9,6 +9,7 @@ import './Search.css';
 const Search = () => {
   const [showJobs, setShowJobs] = useState(false);  // State to control job and pagination visibility
   const [currentPage, setCurrentPage] = useState(1);
+  const [bookmarkedJobs, setBookmarkedJobs] = useState({}); // Track bookmarks with job IDs
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -18,10 +19,17 @@ const Search = () => {
     setShowJobs(true);  // Show job list and pagination when Find Job button is clicked
   };
 
+  const toggleBookmark = (jobId) => {
+    setBookmarkedJobs((prevBookmarks) => ({
+      ...prevBookmarks,
+      [jobId]: !prevBookmarks[jobId], // Toggle bookmark for the specific job
+    }));
+  };
+
   return (
     <div className="search-container">
       <SearchBar onFindJobClick={handleFindJobClick} />
-      {showJobs && <JobList currentPage={currentPage} />}
+      {showJobs && <JobList currentPage={currentPage} bookmarkedJobs={bookmarkedJobs} onToggleBookmark={toggleBookmark} />}
       {showJobs && <Pagination currentPage={currentPage} onPageChange={handlePageChange} />}
     </div>
   );
@@ -52,55 +60,75 @@ const SearchBar = ({ onFindJobClick }) => (
   </div>
 );
 
-const JobCard = ({ title, salary, company, location }) => {
-  const [isBookmarked, setIsBookmarked] = useState(false); // State to track bookmark status
-
-  const toggleBookmark = () => {
-    setIsBookmarked((prev) => !prev); // Toggle the bookmark state
-  };
-
-  return (
-    <div className="job-card">
-      <div className="job-card-content">
-        <h3>{title}</h3>
-        <p>
-          <span className="job-type">FULL-TIME</span> Salary: {salary}
-        </p>
-        <div className="company-info">
-          <FcGoogle id="google" />
-          <div>
-            <p>{company}</p>
-            <p><CiLocationOn /> {location}</p>
-          </div>
+const JobCard = ({ jobId, title, salary, company, location, isBookmarked, onToggleBookmark }) => (
+  <div className="job-card">
+    <div className="job-card-content">
+      <h3>{title}</h3>
+      <p>
+        <span className="job-type">FULL-TIME</span> Salary: {salary}
+      </p>
+      <div className="company-info">
+        <FcGoogle id="google" />
+        <div>
+          <p>{company}</p>
+          <p><CiLocationOn /> {location}</p>
         </div>
       </div>
-      <div className="bookmark-icon" onClick={toggleBookmark} style={{ cursor: "pointer" }}>
-        {isBookmarked ? <BsBookmarkFill color="#FFD700" /> : <CiBookmark />} {/* Change icon when bookmarked */}
-      </div>
     </div>
-  );
-};
+    <div className="bookmark-icon" onClick={() => onToggleBookmark(jobId)} style={{ cursor: "pointer" }}>
+      {isBookmarked ? <BsBookmarkFill color="#FFD700" /> : <CiBookmark />} {/* Change icon when bookmarked */}
+    </div>
+  </div>
+);
 
-const JobList = ({ currentPage }) => {
+const JobList = ({ currentPage, bookmarkedJobs, onToggleBookmark }) => {
   const jobTitles = {
-    1: ["Software Engineer", "UI/UX Designer", "Visual Designer", "Product Designer"],
-    2: ["Frontend Developer", "Backend Developer", "Project Manager", "Data Analyst"],
-    3: ["Marketing Specialist", "Sales Associate", "Content Writer", "SEO Expert"],
-    4: ["Graphic Designer", "DevOps Engineer", "Customer Support", "HR Specialist"],
-    5: ["Research Scientist", "Game Developer", "Mobile Developer", "IT Consultant"],
+    1: [
+      { id: '1-1', title: "Software Engineer" },
+      { id: '1-2', title: "UI/UX Designer" },
+      { id: '1-3', title: "Visual Designer" },
+      { id: '1-4', title: "Product Designer" }
+    ],
+    2: [
+      { id: '2-1', title: "Frontend Developer" },
+      { id: '2-2', title: "Backend Developer" },
+      { id: '2-3', title: "Project Manager" },
+      { id: '2-4', title: "Data Analyst" }
+    ],
+    3: [
+      { id: '3-1', title: "Marketing Specialist" },
+      { id: '3-2', title: "Sales Associate" },
+      { id: '3-3', title: "Content Writer" },
+      { id: '3-4', title: "SEO Expert" }
+    ],
+    4: [
+      { id: '4-1', title: "Graphic Designer" },
+      { id: '4-2', title: "DevOps Engineer" },
+      { id: '4-3', title: "Customer Support" },
+      { id: '4-4', title: "HR Specialist" }
+    ],
+    5: [
+      { id: '5-1', title: "Research Scientist" },
+      { id: '5-2', title: "Game Developer" },
+      { id: '5-3', title: "Mobile Developer" },
+      { id: '5-4', title: "IT Consultant" }
+    ],
   };
 
-  const titles = jobTitles[currentPage] || jobTitles[1];
+  const jobs = jobTitles[currentPage] || [];
 
   return (
     <div className="job-list">
-      {titles.map((title, index) => (
+      {jobs.map((job) => (
         <JobCard
-          key={index}
-          title={title}
+          key={job.id}
+          jobId={job.id}
+          title={job.title}
           salary="$20,000 - $25,000"
           company="Google Inc."
           location="Dammam, SA"
+          isBookmarked={!!bookmarkedJobs[job.id]} // Check bookmark status for each job
+          onToggleBookmark={onToggleBookmark}
         />
       ))}
     </div>
