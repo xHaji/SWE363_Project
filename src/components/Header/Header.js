@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FaGlobe, FaSearch, FaBell, FaCog, FaUser } from 'react-icons/fa';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import './Header.css';
+import logo from '../../assets/applogo.png';
 
 const Header = () => {
   const [isGlobeDropdownOpen, setGlobeDropdownOpen] = useState(false);
@@ -46,7 +47,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="left-section">
-        <img src="/applogo.png" alt="Logo" className="logo" />
+        <img src={logo} alt="Logo" className="logo" />
         <FaUser className="icon" />
       </div>
       <h1 className="title">Dashboard</h1>

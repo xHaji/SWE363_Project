@@ -25,8 +25,8 @@ const JobPosting = () => {
     <div className="job-posting-container">
 
       <div className="banner">
-          <img src={Banner} alt="JobMatch banner" className="banner" />
-        </div>
+        <img src={Banner} alt="JobMatch banner" className="banner" />
+      </div>
 
       <div className="content-wrapper">
         <div className="form-section">

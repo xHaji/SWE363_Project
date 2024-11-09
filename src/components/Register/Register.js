@@ -9,11 +9,11 @@ function Register() {
 
   const handleRegister = (e) => {
     e.preventDefault();
+    navigate('/login');
+  };
 
-    // Assume successful registration here
-    // You can add your registration logic or API request here
-
-    navigate('/dashboard'); // Redirect to dashboard after registration
+  const handleCancel = () => {
+    navigate('/login');
   };
 
   return (
@@ -26,12 +26,14 @@ function Register() {
         <input type="text" placeholder="Email or Phone" required />
         <input type="password" placeholder="Password" required />
         <div className="button-group">
-          <button type="button" className="cancel-button">Cancel</button>
+          <button type="button" className="cancel-button" onClick={handleCancel}>
+            Cancel
+          </button>
           <button type="submit" className="signup-button">Sign Up</button>
         </div>
       </form>
       <p>
-        Already have an account? <Link to="/">Log in</Link>
+        Already have an account? <Link to="/login">Log in</Link>
       </p>
     </div>
   );

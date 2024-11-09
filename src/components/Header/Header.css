@@ -1,12 +1,18 @@
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 20px;
+  height: 60px; /* Fixed height */
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+
   .left-section {
     display: flex;
     align-items: center;
