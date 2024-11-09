@@ -1,6 +1,6 @@
 import React from 'react';
 import './UserActivity.css';
-import banner from '../../assets/HeaderPhoto.png';
+import banner from '../../assets/banner.png';
 
 const UserActivity = () => {
   const stats = [
@@ -26,11 +26,6 @@ const UserActivity = () => {
     <div className="user-activity">
       <div className="activity-header">
         <h1>User Activity</h1>
-        <div className="header-icons">
-          <button className="icon-button">🔍</button>
-          <button className="icon-button">🔔</button>
-          <button className="icon-button">⚙️</button>
-        </div>
       </div>
 
       <div className="banner">

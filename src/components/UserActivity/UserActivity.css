@@ -10,11 +10,6 @@
   padding: 16px;
 }
 
-.header-icons {
-  display: flex;
-  gap: 16px;
-}
-
 .icon-button {
   background: none;
   border: none;

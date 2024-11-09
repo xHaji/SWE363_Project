@@ -1,6 +1,6 @@
 import React from 'react';
 import './Profile.css';
-import Banner from '../../assets/HeaderPhoto.png';
+import Banner from '../../assets/banner.png';
 import GoogleLogo from '../../assets/google.png';
 
 const Profile = () => {
@@ -15,11 +15,6 @@ const Profile = () => {
     <div className="profile">
       <div className="profile-header">
         <h1>User Activity</h1>
-        <div className="header-icons">
-          <button className="icon-button">🔍</button>
-          <button className="icon-button">🔔</button>
-          <button className="icon-button">⚙️</button>
-        </div>
       </div>
 
       <div className="banner-container">

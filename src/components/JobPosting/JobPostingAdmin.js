@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './JobPostingAdmin.css';
-import Banner from '../../assets/HeaderPhoto.png';
+import Banner from '../../assets/banner.png';
 import Logo from '../../assets/google.png';
 const JobPostingAdmin = () => {
   const [jobDetails, setJobDetails] = useState({
@@ -21,11 +21,6 @@ const JobPostingAdmin = () => {
       <div className="admin-header">
         <div className="header-left">
           <h1>Job Postings</h1>
-        </div>
-        <div className="header-icons">
-          <button className="icon-button">🔍</button>
-          <button className="icon-button">🔔</button>
-          <button className="icon-button">⚙️</button>
         </div>
       </div>
 
