@@ -120,13 +120,13 @@ const Message = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [messages, setMessages] = useState([
     { name: "Mohamed", message: "You: Hello", time: "11:11 AM", recipients: ["Mohamed"] },
-    { name: "MICROSOFT", message: "You: Your message", time: "11:11 AM", recipients: ["MICROSOFT"] },
+    { name: "Ahmed", message: "You: Your message", time: "11:11 AM", recipients: ["MICROSOFT"] },
     { name: "Sponsor", message: "Sponsor - Sponsored message", time: "11:11 AM", recipients: ["Sponsor"] },
     { name: "Abdullah", message: "You sent a post", time: "11:11 AM", recipients: ["Abdullah"] },
     { name: "Ahmed", message: "You: Voice message", time: "11:11 AM", recipients: ["Ahmed"] },
   ]);
 
-  const recipients = ["STC", "Osama", "ARAMCO", "Sara", "Zain"];
+  const recipients = ["Mariam", "Osama", "Mostafa", "Sara", "Zain"];
 
   const addMessage = (recipient, message) => {
     setMessages([...messages, { name: recipient, message: `You: ${message}`, time: "Now", recipients: [recipient] }]);
