@@ -1,0 +1,172 @@
+/* SystemPerformance.css */
+
+.system-performance {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Banner Section */
+  .banner-container {
+    width: 100%;
+    height: 200px;
+    background-color: #2B3147;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  
+  .banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+  }
+  
+  /* Main Grid for Performance Sections */
+  .performance-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  /* Each Performance Section Styling */
+  .performance-section {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+  }  
+  /* Side-by-side layout for Application Usage and Most Applications Applied */
+  .application-usage-section {
+    flex: 1 1 45%;
+    max-width: 45%;
+  }
+  
+  .most-applications-section {
+    flex: 1 1 45%;
+    max-width: 45%;
+  }
+  
+  .application-activity-section {
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin-top: 20px;
+  }
+  
+  /* Section Titles */
+  .section-title {
+    font-size: 1.2em;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .download-report {
+    color: #FB923C;
+    cursor: pointer;
+    font-size: 0.9em;
+  }
+  
+  /* Application Usage Styling */
+  .application-usage {
+    display: flex;
+    flex-direction: column; /* Stack chart above usage-stats */
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .usage-stats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+  }  
+  .usage-stats p {
+    margin: 5px 0;
+  }
+  
+  /* Most Applications Applied Styling */
+  .applications-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .application-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .stat-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-bottom: 8px;
+  }
+
+  .employers {
+    background-color: #4B5563; /* Dark color for Employers */
+  }
+  
+  .admins {
+    background-color: #FB923C; /* Orange color for Admins */
+  }
+  
+  .job-seekers {
+    background-color: #8B5CF6; /* Light blue color for Job Seekers */
+  }
+
+  .stat-label {
+    font-size: 0.9em;
+    color: #6B7280;
+  }
+
+  .stat-number {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #4B5563;
+  }
+  
+  .applicant-name {
+    width: 100px;
+    color: #111827;
+    font-weight: bold;
+  }
+  
+  .application-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .progress-bar {
+    height: 8px;
+    background-color: #8B5CF6;
+    border-radius: 4px;
+  }
+  
+  .progress-percent {
+    font-size: 0.9em;
+    color: #8B5CF6;
+  }
+  
+  /* Application Activity Styling */
+  .application-activity-section {
+    margin-top: 20px;
+  }
+  
