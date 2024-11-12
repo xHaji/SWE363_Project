@@ -12,6 +12,8 @@ import SettingsJobSeeker from './components/Settings/Settings-JobSeeker';
 import SearchAdmin from './components/Search/SearchAdmin';
 import SearchJobSeekers from './components/Search/SearchJobSeekers';
 import ProfileJobSeeker from './components/Profile/Profile-JobSeeker';
+import JobDetail from './components/JobDetails/Jobdetails';
+
 import './App.css';
 
 function App() {
@@ -88,6 +90,14 @@ function App() {
               </Layout>
             }
           />
+          <Route 
+            path="/job/:jobId" 
+            element={
+              <Layout>
+                <JobDetail />
+                </Layout> 
+              } 
+              />
 
           {/* Profile Route */}
           <Route
