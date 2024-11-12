@@ -16,15 +16,15 @@ function Login() {
     switch (userInput) {
       case 'A':
         setUserType('admin');
-        navigate('/DashboardContents', { state: { userType: 'admin' } });
+        navigate('/ADashboardContent', { state: { userType: 'admin' } });
         break;
       case 'J':
         setUserType('jobseeker');
-        navigate('/DashboardContents', { state: { userType: 'jobseeker' } });
+        navigate('/JBDashboardContent', { state: { userType: 'jobseeker' } });
         break;
       case 'E':
         setUserType('employee');
-        navigate('/DashboardContents', { state: { userType: 'employee' } });
+        navigate('/EDashboardContent', { state: { userType: 'employee' } });
         break;
       default:
         setError('Invalid user type. Please enter A, J, or E');
@@ -36,7 +36,7 @@ function Login() {
     <div className="login-container">
       <div className="login-content">
         <div className="logo">
-          <img src={logo} alt="JobMatch Logo" className="logo-image" />
+          <img src={logo} alt="JobMatch Logo" className="logo-login" />
         </div>
         <div className="login-text">
           <h2>Login</h2>

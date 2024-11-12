@@ -41,3 +41,30 @@
 .nav-links .sign-out:hover .nav-icon {
   color: red; /* Change icon color to red */
 }
+
+body.dark-mode .sidebar {
+  background-color: #333;
+  border-right: 1px solid #444;
+}
+
+body.dark-mode .nav-links  {
+  color: #ddd;
+}
+
+body.dark-mode .nav-links li {
+  color: #ddd;
+}
+
+
+body.dark-mode .nav-links a {
+  color: #ddd;
+}
+
+body.dark-mode .nav-links a:hover {
+  color: #007bff;
+  font-weight: bold;
+}
+
+body.dark-mode .nav-links .sign-out:hover {
+  color: red; /* Change text color to red */
+}
