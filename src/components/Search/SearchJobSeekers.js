@@ -4,7 +4,10 @@ import { LiaFilterSolid } from "react-icons/lia";
 import { CiLocationOn, CiBookmark } from "react-icons/ci";
 import { FcGoogle } from "react-icons/fc";
 import { BsBookmarkFill } from "react-icons/bs"; // Import filled bookmark icon
+import { useNavigate } from 'react-router-dom';
+
 import './Search.css';
+
 
 const Search = () => {
   const [showJobs, setShowJobs] = useState(false);  // State to control job and pagination visibility
@@ -60,8 +63,10 @@ const SearchBar = ({ onFindJobClick }) => (
   </div>
 );
 
-const JobCard = ({ jobId, title, salary, company, location, isBookmarked, onToggleBookmark }) => (
-  <div className="job-card">
+const JobCard = ({ jobId, title, salary, company, location, isBookmarked, onToggleBookmark }) =>{
+  const navigate = useNavigate();
+  return(
+    <div className="job-card" onClick={() => navigate(`/job/${jobId}`)} style={{ cursor: 'pointer' }}>
     <div className="job-card-content">
       <h3>{title}</h3>
       <p>
@@ -75,11 +80,15 @@ const JobCard = ({ jobId, title, salary, company, location, isBookmarked, onTogg
         </div>
       </div>
     </div>
-    <div className="bookmark-icon" onClick={() => onToggleBookmark(jobId)} style={{ cursor: "pointer" }}>
-      {isBookmarked ? <BsBookmarkFill color="#FFD700" /> : <CiBookmark />} {/* Change icon when bookmarked */}
+    <div className="bookmark-icon" onClick={(e) => {
+      e.stopPropagation(); // Prevent navigation when clicking bookmark
+      onToggleBookmark(jobId);
+    }} style={{ cursor: "pointer" }}>
+      {isBookmarked ? <BsBookmarkFill color="#FFD700" /> : <CiBookmark />}
     </div>
   </div>
 );
+};
 
 const JobList = ({ currentPage, bookmarkedJobs, onToggleBookmark }) => {
   const jobTitles = {
