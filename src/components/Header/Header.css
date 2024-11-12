@@ -4,93 +4,93 @@
   justify-content: space-between;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
-  padding: 10px 20px;
-  height: 60px; /* Fixed height */
   width: 100%;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Increased space between logo and profile icon */
+}
 
-  .left-section {
-    display: flex;
-    align-items: center;
-  }
+
   
-  .logo {
-    height:40px; /* Adjust size as needed */
-    margin-right: 15px;
-  }
+.logo {
+  width: 40px;
+  align-items: center;
+  border: 1px solid #ddd;
+  height: auto;
+}
   
-  .user-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #000; /* Placeholder color */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 18px;
-    margin-right: 20px;
-  }
+.user-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #000; /* Placeholder color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+}
   
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-  }
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}
   
-  .right-section {
-    display: flex;
-    align-items: center;
-  }
+.right-section {
+  display: flex;
+  align-items: center;
+}
   
-  .right-section .icon {
-    font-size: 18px; /* Adjust size as needed */
-    margin-left: 15px;
-    cursor: pointer;
-    position: relative;
-  }
+.right-section .icon {
+  font-size: 18px; /* Adjust size as needed */
+  margin-left: 15px;
+  cursor: pointer;
+  position: relative;
+}
   
-  .icon-dropdown {
-    margin-left: 5px; /* For spacing between icon and dropdown arrow */
-    
-  }
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-  }
+.icon-dropdown {
+  margin-left: 5px; /* For spacing between icon and dropdown arrow */  
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
   
-  .right-section .icon {
-    font-size: 18px; /* Adjust as needed */
-    margin-left: 15px;
-    cursor: pointer;
-  }
-  .icon {
-    cursor: pointer;
-    margin-right: 15px;
-  }
+.right-section .icon {
+  font-size: 18px; /* Adjust as needed */
+  margin-left: 15px;
+  cursor: pointer;
+}
+.icon {
+  cursor: pointer;
+  margin-right: 15px;
+}
   
-  .dropdown-menu {
-    position: absolute;
-    top: 50px; /* Adjust this value to position the menu under the bell icon */
-    right: 20px; /* Align with the bell icon */
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-    width: 300px; /* Adjust width as needed */
-    padding: 10px;/* Adjust width as needed */
-  }
+.dropdown-menu {
+  position: absolute;
+  top: 50px; /* Adjust this value to position the menu under the bell icon */
+  right: 20px; /* Align with the bell icon */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  width: 300px; /* Adjust width as needed */
+  padding: 10px;/* Adjust width as needed */
+}
   
-  .dropdown-item {
-    margin-bottom: 10px;
+.dropdown-item {
+   margin-bottom: 10px;
     cursor: pointer;
   }
   
@@ -269,4 +269,17 @@
     background-color: #218838;
   }
        
-  
+  body.dark-mode .notification-button {
+    background-color: #28a745; /* Light text color for dark mode */
+    color: #fff;
+  }
+ 
+  body.dark-mode .notification-button:hover {
+    background-color: #218838; /* Light text color for dark mode */
+    
+  }
+ 
+  body.dark-mode .notification-menu {
+    color: #fff; /* Light text color for dark mode */
+    background-color: #333;
+  }

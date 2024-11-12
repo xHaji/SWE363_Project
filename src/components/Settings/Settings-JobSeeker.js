@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import './Settings-JobSeeker.css';
 import Banner from '../../assets/banner.png';
-import Layout from '../Layout/Layout'; // Import the Layout component
+import { useLocation } from 'react-router-dom';
 
-const Settings = () => {
+const SettingsJobSeeker = () => {
+  const location = useLocation();
+  const userType = location?.state?.userType || 'jobseeker';
   const [activeTab, setActiveTab] = useState('My details');
 
   const renderTabContent = () => {
@@ -98,30 +100,28 @@ const Settings = () => {
   };
 
   return (
-    <Layout> {/* Wrap with Layout to include Header and Sidebar */}
-      <div className="settings-page">
-        <div className="banner-container">
-          <img src={Banner} alt="Banner" className="banner-image" />
-          <div className="profile-image-container">
-            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=100&h=100&q=80" alt="Profile" className="profile-image" />
-          </div>
-        </div>
-
-        <div className="tabs">
-          <button onClick={() => setActiveTab('My details')} className={`tab-button ${activeTab === 'My details' ? 'active-tab' : ''}`}>My details</button>
-          <button onClick={() => setActiveTab('Profile')} className={`tab-button ${activeTab === 'Profile' ? 'active-tab' : ''}`}>Profile</button>
-          <button onClick={() => setActiveTab('Password')} className={`tab-button ${activeTab === 'Password' ? 'active-tab' : ''}`}>Password</button>
-          <button onClick={() => setActiveTab('Team')} className={`tab-button ${activeTab === 'Team' ? 'active-tab' : ''}`}>Team</button>
-          <button onClick={() => setActiveTab('Plan')} className={`tab-button ${activeTab === 'Plan' ? 'active-tab' : ''}`}>Plan</button>
-          <button onClick={() => setActiveTab('Billing')} className={`tab-button ${activeTab === 'Billing' ? 'active-tab' : ''}`}>Billing</button>
-        </div>
-
-        <div className="content-section">
-          {renderTabContent()}
+    <div className="settings-page">
+      <div className="banner-container">
+        <img src={Banner} alt="Banner" className="banner-image" />
+        <div className="profile-image-container">
+          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=100&h=100&q=80" alt="Profile" className="profile-image" />
         </div>
       </div>
-    </Layout>
+
+      <div className="tabs">
+        <button onClick={() => setActiveTab('My details')} className={`tab-button ${activeTab === 'My details' ? 'active-tab' : ''}`}>My details</button>
+        <button onClick={() => setActiveTab('Profile')} className={`tab-button ${activeTab === 'Profile' ? 'active-tab' : ''}`}>Profile</button>
+        <button onClick={() => setActiveTab('Password')} className={`tab-button ${activeTab === 'Password' ? 'active-tab' : ''}`}>Password</button>
+        <button onClick={() => setActiveTab('Team')} className={`tab-button ${activeTab === 'Team' ? 'active-tab' : ''}`}>Team</button>
+        <button onClick={() => setActiveTab('Plan')} className={`tab-button ${activeTab === 'Plan' ? 'active-tab' : ''}`}>Plan</button>
+        <button onClick={() => setActiveTab('Billing')} className={`tab-button ${activeTab === 'Billing' ? 'active-tab' : ''}`}>Billing</button>
+      </div>
+
+      <div className="content-section">
+        {renderTabContent()}
+      </div>
+    </div>
   );
 };
 
-export default Settings;
+export default SettingsJobSeeker;
