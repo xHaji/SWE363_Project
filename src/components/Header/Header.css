@@ -10,21 +10,18 @@
   z-index: 1000;
 }
 
+.logo_header {
+  width: 50px;
+  align-items: center;
+  height: 50px;
+}
+
 .left-section {
   display: flex;
   align-items: center;
   gap: 20px; /* Increased space between logo and profile icon */
 }
 
-
-  
-.logo {
-  width: 40px;
-  align-items: center;
-  border: 1px solid #ddd;
-  height: auto;
-}
-  
 .user-icon {
   width: 40px;
   height: 40px;

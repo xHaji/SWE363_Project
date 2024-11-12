@@ -36,7 +36,7 @@ function Login() {
     <div className="login-container">
       <div className="login-content">
         <div className="logo">
-          <img src={logo} alt="JobMatch Logo" className="logo-image" />
+          <img src={logo} alt="JobMatch Logo" className="logo-login" />
         </div>
         <div className="login-text">
           <h2>Login</h2>

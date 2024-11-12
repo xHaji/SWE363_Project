@@ -21,7 +21,7 @@ function ForgetPassword() {
   return (
     <div className="forget-password-container">
       <div className="logo">
-        <img src={logo} alt="JobMatch Logo" className="logo-image" />
+        <img src={logo} alt="JobMatch Logo" className="logo-forget" />
       </div>
       <h2>Forget Password</h2>
       <p className="subtitle">

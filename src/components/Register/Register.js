@@ -19,7 +19,7 @@ function Register() {
   return (
     <div className="register-container">
       <div className="logo">
-        <img src={logo} alt="JobMatch Logo" className="logo-image" />
+        <img src={logo} alt="JobMatch Logo" className="logo-register" />
       </div>
       <h2>Register</h2>
       <form className="register-form" onSubmit={handleRegister}>

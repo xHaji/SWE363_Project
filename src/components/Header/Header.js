@@ -100,7 +100,7 @@ const Header = ({ userType }) => {
   return (
     <div className="header">
       <div className="left-section">
-        <img src={logo} alt="Logo" className="logo" />
+        <img src={logo} alt="Logo" className="logo_header" />
         {userType === 'jobseeker' && (
           <FaUser 
             className="icon" 
