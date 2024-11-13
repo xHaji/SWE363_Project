@@ -25,7 +25,6 @@ const UserActivity = () => {
   return (
     <div className="user-activity">
       <div className="activity-header">
-        <h1>User Activity</h1>
       </div>
 
       <div className="banner">

@@ -5,12 +5,12 @@ import { MdMessage, MdOutlineTouchApp } from 'react-icons/md';
 import { ImExit } from 'react-icons/im'; // Import the new exit icon
 import './Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar = ({ userType }) => {
   return (
     <div className="sidebar">
       <ul className="nav-links">
         <li>
-          <a href="/DashboardContents">
+          <a href="/EDashboardContent">
             <RxDashboard className="nav-icon" /> Dashboard
           </a>
         </li>

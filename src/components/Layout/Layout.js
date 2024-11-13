@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
-import Sidebar from '../Sidebar/Sidebar';
+import SidebarAdmin from '../Sidebar/Sidebar-Admin';
+import SidebarEmployer from '../Sidebar/Sidebar-Employers';
+import SidebarJobSeeker from '../Sidebar/Sidebar-JobSeeker';
 import './Layout.css';
 
 const Layout = ({ children }) => {
   const location = useLocation();
-  const userType = location?.state?.userType;
+  const userTypeFromState = location?.state?.userType;
+
+  const userType = userTypeFromState || localStorage.getItem('userType');
+
+  useEffect(() => {
+    if (userTypeFromState) {
+      localStorage.setItem('userType', userTypeFromState);
+    }
+  }, [userTypeFromState]);
+
+  const renderSidebar = () => {
+    switch (userType) {
+      case 'admin':
+        return <SidebarAdmin />;
+      case 'jobseeker':
+        return <SidebarJobSeeker />;
+      case 'employee':
+        return <SidebarEmployer />;
+      default:
+        return null; 
+    }
+  };
 
   return (
     <div className="layout">
@@ -15,7 +38,7 @@ const Layout = ({ children }) => {
       </div>
       <div className="layout-container">
         <div className="sidebar-wrapper">
-          <Sidebar userType={userType} />
+          {renderSidebar()} 
         </div>
         <main className="main-content">
           {children}
@@ -25,4 +48,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout; 
+export default Layout;

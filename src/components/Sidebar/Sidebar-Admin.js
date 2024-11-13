@@ -9,17 +9,17 @@ import { FaChartLine } from 'react-icons/fa';
 
 import './Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar = ({ userType }) => {
   return (
     <div className="sidebar">
       <ul className="nav-links">
         <li>
-          <a href="/DashboardContents">
+          <a href="/ADashboardContent">
             <RxDashboard className="nav-icon" /> Dashboard
           </a>
         </li>
         <li>
-          <a href="/JobPosting">
+          <a href="/JobPostingAdmin">
             <FaArchive className="nav-icon" /> Job Posting
           </a>
         </li>
@@ -34,7 +34,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li>
-          <a href="#" className="sign-out">
+          <a href="/Login" className="sign-out">
             <ImExit className="nav-icon" /> Sign Out
           </a>
         </li>

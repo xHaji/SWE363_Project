@@ -1,8 +1,9 @@
-/* Settings-Employer.css */
-
 .settings-page {
     padding: 20px;
     background-color: #f8f9fa;
+  }
+  .dark-mode .settings-page {
+    background-color: #555;
   }
   
   .banner-container {
@@ -12,7 +13,7 @@
     background-color: #2b3147;
     border-radius: 15px;
     overflow: hidden;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
   }
   
   .banner-image {
@@ -21,10 +22,9 @@
     object-fit: cover;
   }
   
-  /* Profile Image positioned in the bottom-left corner */
   .profile-image-container {
     position: absolute;
-    bottom: -40px; /* Adjust to position the image */
+    bottom: 0px; 
     left: 20px;
   }
   
@@ -62,6 +62,12 @@
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
+
+  .dark-mode .content-section {
+    background-color: #444;
+  }
+
+  
   
   .tab-content {
     margin-top: 20px;

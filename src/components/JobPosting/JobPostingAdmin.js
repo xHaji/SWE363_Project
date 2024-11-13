@@ -20,7 +20,6 @@ const JobPostingAdmin = () => {
     <div className="admin-container">
       <div className="admin-header">
         <div className="header-left">
-          <h1>Job Postings</h1>
         </div>
       </div>
 

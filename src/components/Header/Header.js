@@ -92,6 +92,24 @@ const Header = ({ userType }) => {
         return 'Settings';
       case '/profile-jobseeker':
         return 'Profile';
+      case '/JobPostingAdmin':
+        return 'Job Posting';
+      case '/UserActivity':
+        return 'User Activity';
+      case '/SystemPerformance':
+        return 'System Performance';
+      case '/JobPosting':
+        return 'Job Posting';
+      case '/MessageEmployers':
+        return 'Message';
+      case '/MessageJobSeekers':
+        return 'Message';
+      case '/ApplicationEmployers':
+        return 'Application';
+      case '/SavedJobs':
+        return 'Saved Jobs'
+      case '/ApplicationJobseekers':
+        return 'Application';
       default:
         return 'Dashboard';
     }
@@ -163,8 +181,7 @@ const Header = ({ userType }) => {
                   <p>
                     Amazon company that you are following have posted a new job.
                   </p>
-                  <button className="notification-button">Go to the job</button>
-                </div>
+                  <button className="notification-button" onClick={() => window.location.href = '/search-jobseeker'}>Go to the job</button>                </div>
                 <div className="notification-item">
                   <strong>Interview Reminder</strong>
                   <p>You have a scheduled interview today at 8 pm.</p>

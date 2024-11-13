@@ -5,7 +5,6 @@ import './SystemPerformance.css';
 import { Doughnut, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement } from 'chart.js';
 import Banner from '../../assets/banner.png';
-import Layout from '../Layout/Layout'; // Import the Layout component
 
 // Register chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement);
@@ -50,7 +49,7 @@ const mostApplications = [
 
 const SystemPerformance = () => {
   return (
-    <Layout> {/* Wrap the main content in Layout to include Header and Sidebar */}
+    // <Layout> {/* Wrap the main content in Layout to include Header and Sidebar */}
       <div className="system-performance">
         {/* Banner Section */}
         <div className="banner-container">
@@ -109,7 +108,7 @@ const SystemPerformance = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    // </Layout>
   );
 };
 

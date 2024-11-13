@@ -13,8 +13,16 @@ import SearchAdmin from './components/Search/SearchAdmin';
 import SearchJobSeekers from './components/Search/SearchJobSeekers';
 import ProfileJobSeeker from './components/Profile/Profile-JobSeeker';
 import JobDetail from './components/JobDetails/Jobdetails';
-
+import SystemPerformance from './components/SystemPerformance/SystemPerformance';
 import './App.css';
+import UserActivity from './components/UserActivity/UserActivity';
+import JobPostingAdmin from './components/JobPosting/JobPostingAdmin';
+import JobPosting from './components/JobPosting/JobPosting';
+import MessageEmployers from './components/Message/MessageEmployers';
+import ApplicationEmployers from './components/Application/ApplicationEmployers';
+import SavedJobs from './components/SavedJobs/SavedJobs';
+import MessageJobSeekers from './components/Message/MessageJobSeekers';
+import ApplicationJobseekers from './components/Application/ApplicationJobseekers';
 
 function App() {
   return (
@@ -105,6 +113,94 @@ function App() {
             element={
               <Layout>
                 <ProfileJobSeeker />
+              </Layout>
+            }
+          />
+
+          {/* Ststem Performanc Route*/}
+          <Route
+            path="/SystemPerformance"
+            element={
+              <Layout>
+                <SystemPerformance />
+              </Layout>
+            }
+          />
+
+          {/* User Activity Route */}
+          <Route
+            path="/UserActivity"
+            element={
+              <Layout>
+                <UserActivity />
+              </Layout>
+            }
+          />
+          {/* JobPostingAdmin Route */}
+          <Route
+            path="/JobPostingAdmin"
+            element={
+              <Layout>
+                <JobPostingAdmin />
+              </Layout>
+            }
+          />
+
+          {/* JobPosting Route */}
+          <Route
+            path="/JobPosting"
+            element={
+              <Layout>
+                <JobPosting />
+              </Layout>
+            }
+          />
+          
+          {/* MessageEmployers Route */}
+          <Route
+            path="/MessageEmployers"
+            element={
+              <Layout>
+                <MessageEmployers />
+              </Layout>
+            }
+          />
+          
+          {/* ApplicationEmployers Route */}
+          <Route
+            path="/ApplicationEmployers"
+            element={
+              <Layout>
+                <ApplicationEmployers />
+              </Layout>
+            }
+          />
+          
+          {/* SavedJobs Route */}
+          <Route
+            path="/SavedJobs"
+            element={
+              <Layout>
+                <SavedJobs />
+              </Layout>
+            }
+          />
+          {/* MessageJobSeekers Route */}
+          <Route
+            path="/MessageJobSeekers"
+            element={
+              <Layout>
+                <MessageJobSeekers />
+              </Layout>
+            }
+          />
+          
+          {/* ApplicationJobseekers Route */}
+          <Route
+            path="/ApplicationJobseekers"
+            element={
+              <Layout>
+                <ApplicationJobseekers />
               </Layout>
             }
           />

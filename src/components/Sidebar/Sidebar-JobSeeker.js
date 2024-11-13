@@ -5,12 +5,12 @@ import { MdMessage, MdOutlineTouchApp } from 'react-icons/md';
 import { ImExit } from 'react-icons/im'; // Import the new exit icon
 import './Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar3 = ({ userType }) => {
   return (
     <div className="sidebar">
       <ul className="nav-links">
         <li>
-          <a href="/DashboardContents">
+          <a href="/JBDashboardContent">
             <RxDashboard className="nav-icon" /> Dashboard
           </a>
         </li>
@@ -25,12 +25,12 @@ const Sidebar = () => {
           </a>
         </li>
         {/* <li>
-          <a href="/App">
-            <MdOutlineTouchApp className="nav-icon" /> Applications
-          </a>
-        </li> */}
+                <a href="/ApplicationJobseekers">
+                  <MdOutlineTouchApp className="nav-icon" /> Application
+                </a>
+              </li> */}
         <li>
-          <a href="#" className="sign-out">
+          <a href="/Login" className="sign-out">
             <ImExit className="nav-icon" /> Sign Out
           </a>
         </li>

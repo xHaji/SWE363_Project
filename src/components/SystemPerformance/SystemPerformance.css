@@ -38,6 +38,12 @@
     box-sizing: border-box;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   }
+
+  body.dark-mode .performance-section {
+    background-color: #333;
+
+  }
+
   
   /* Align Application Usage and Most Applications Applied Side by Side */
   .application-usage-section,
