@@ -77,3 +77,43 @@ p a {
 p a:hover {
   text-decoration: underline;
 }
+
+/* User type selection styling */
+.user-type-selection {
+  margin: 15px 0;
+  width: 100%;
+}
+
+.user-type-selection label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.user-type-selection select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+}
+
+/* Error message styling */
+.error-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* Dark mode styles for new elements */
+body.dark-mode .user-type-selection label {
+  color: #fff;
+}
+
+body.dark-mode .user-type-selection select {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}

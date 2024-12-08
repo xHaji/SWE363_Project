@@ -6,30 +6,57 @@ import logo from '../../assets/logo.png';
 
 function Login() {
   const navigate = useNavigate();
-  const [userType, setUserType] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
   const [error, setError] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const userInput = e.target.elements.userType.value.toUpperCase();
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    switch (userInput) {
-      case 'A':
-        setUserType('admin');
-        navigate('/ADashboardContent', { state: { userType: 'admin' } });
-        break;
-      case 'J':
-        setUserType('jobseeker');
-        navigate('/JBDashboardContent', { state: { userType: 'jobseeker' } });
-        break;
-      case 'E':
-        setUserType('employee');
-        navigate('/EDashboardContent', { state: { userType: 'employee' } });
-        break;
-      default:
-        setError('Invalid user type. Please enter A, J, or E');
-        break;
+      const data = await response.json();
+
+      if (response.ok) {
+        // Store token in localStorage
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userType', data.userType);
+
+        // Redirect based on user type
+        switch (data.userType) {
+          case 'admin':
+            navigate('/ADashboardContent');
+            break;
+          case 'jobseeker':
+            navigate('/JBDashboardContent');
+            break;
+          case 'employee':
+            navigate('/EDashboardContent');
+            break;
+          default:
+            setError('Invalid user type');
+        }
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      setError('Server error. Please try again.');
     }
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
   return (
@@ -47,14 +74,19 @@ function Login() {
         </p>
         <form className="login-form" onSubmit={handleLogin}>
           <input 
-            type="text" 
-            name="userType"
-            placeholder="Enter A for Admin, J for Job Seeker, E for Employee" 
+            type="email" 
+            name="email"
+            placeholder="Email" 
+            value={formData.email}
+            onChange={handleChange}
             required 
           />
           <input 
-            type="password" 
-            placeholder="Password" 
+            type="password"
+            name="password" 
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
             required 
           />
           {error && <p className="error-message">{error}</p>}
