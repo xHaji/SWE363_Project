@@ -16,9 +16,40 @@ const JobPosting = () => {
     instructions: ''
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
+    try {
+      const response = await fetch('http://localhost:5000/api/jobs/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jobDetails),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Job post created successfully');
+        // Optionally, reset the form
+        setJobDetails({
+          title: '',
+          companyName: '',
+          jobLocation: '',
+          jobInfo: '',
+          orgInfo: '',
+          connections: '',
+          skills: '',
+          description: '',
+          requirements: '',
+          instructions: ''
+        });
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      alert('Server error. Please try again.');
+    }
   };
 
   return (

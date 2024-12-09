@@ -22,6 +22,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/jobs', require('./routes/job'));
 
 // Test route
 app.get('/', (req, res) => {

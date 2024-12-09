@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './JobPostingAdmin.css';
 import Banner from '../../assets/banner.png';
-import Logo from '../../assets/google.png';
+
 const JobPostingAdmin = () => {
   const [jobDetails, setJobDetails] = useState({
     jobTitle: '',
@@ -10,55 +10,122 @@ const JobPostingAdmin = () => {
     requirements: '',
     keyResponsibilities: ''
   });
+  const [jobs, setJobs] = useState([]);
+  const [selectedJob, setSelectedJob] = useState(null);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/jobs');
+        const data = await response.json();
+        setJobs(data);
+      } catch (error) {
+        console.error('Error fetching jobs:', error);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
+  const handleSelectJob = (job) => {
+    setSelectedJob(job);
+    setJobDetails({
+      jobTitle: job.title,
+      shiftSalary: job.shiftSalary,
+      jobInfo: job.jobInfo,
+      requirements: job.requirements,
+      keyResponsibilities: job.keyResponsibilities
+    });
+  };
+
+  const handleUpdate = async (e) => {
     e.preventDefault();
-    // Handle form submission
+    if (!selectedJob) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/jobs/${selectedJob._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jobDetails),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Job post updated successfully');
+        setJobs(jobs.map(job => job._id === selectedJob._id ? data.updatedJob : job));
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      alert('Server error. Please try again.');
+    }
+  };
+
+  const handleDelete = async (jobId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/jobs/${jobId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        alert('Job post deleted successfully');
+        setJobs(jobs.filter(job => job._id !== jobId));
+        if (selectedJob && selectedJob._id === jobId) {
+          setSelectedJob(null);
+          setJobDetails({
+            jobTitle: '',
+            shiftSalary: '',
+            jobInfo: '',
+            requirements: '',
+            keyResponsibilities: ''
+          });
+        }
+      } else {
+        const data = await response.json();
+        alert(data.message);
+      }
+    } catch (error) {
+      alert('Server error. Please try again.');
+    }
   };
 
   return (
     <div className="admin-container">
       <div className="admin-header">
-        <div className="header-left">
-        </div>
+        <h1>Job Postings</h1>
       </div>
 
       <div className="banner">
-          <img src={Banner} alt="JobMatch banner" className="banner" />
-        </div>
+        <img src={Banner} alt="JobMatch banner" className="banner" />
+      </div>
 
       <div className="job-content">
-        <div className="job-details">
-          <div className="job-header">
-            <h2>Software Engineer</h2>
-            <span className="job-type">FULL TIME</span>
-            <span className="salary">Salary: $20,000 - $25,000</span>
-          </div>
-
-          <div className="company-details">
-            <img src={Logo} alt="Google Inc." className="company-logo" />
-            <div className="company-info">
-              <h3>Google Inc.</h3>
-              <p>📍 Dammam, Saudi Arabia</p>
-            </div>
-          </div>
-
-          <div className="job-sections">
-            <div className="section">
-              <h4>Job Info: Text Here</h4>
-            </div>
-            <div className="section">
-              <h4>Requirements: Text Here</h4>
-            </div>
-            <div className="section">
-              <h4>Key Responsibilities: Text Here</h4>
-            </div>
-          </div>
+        <div className="job-list">
+          <h3>Job Posts</h3>
+          <ul>
+            {jobs.map(job => (
+              <li key={job._id}>
+                <div className="job-info">
+                  <h4>{job.title}</h4>
+                  <p><strong>Company:</strong> {job.companyName}</p>
+                  <p><strong>Location:</strong> {job.jobLocation}</p>
+                  <p><strong>Info:</strong> {job.jobInfo}</p>
+                  <p><strong>Requirements:</strong> {job.requirements}</p>
+                  <p><strong>Responsibilities:</strong> {job.keyResponsibilities}</p>
+                  <button onClick={() => handleSelectJob(job)}>Select</button>
+                  <button onClick={() => handleDelete(job._id)}>Delete</button>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="modifications-panel">
           <h3>Modifications</h3>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleUpdate}>
             <div className="mod-input-group">
               <label>
                 <span>⭐ Job title</span>
@@ -135,21 +202,10 @@ const JobPostingAdmin = () => {
             </div>
 
             <div className="button-group">
-              <button type="submit" className="publish-btn">Publish</button>
-              <button type="button" className="delete-btn">Delete</button>
+              <button type="submit" className="publish-btn">Update</button>
             </div>
           </form>
         </div>
-      </div>
-
-      <div className="pagination">
-        <button className="prev">←</button>
-        <button className="active">01</button>
-        <button>02</button>
-        <button>03</button>
-        <button>04</button>
-        <button>05</button>
-        <button className="next">→</button>
       </div>
     </div>
   );
