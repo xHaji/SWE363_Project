@@ -1,6 +1,6 @@
+require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db');
-require('dotenv').config();
 const userRoutes = require('./routes/user');
 
 const app = express();
