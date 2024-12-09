@@ -23,6 +23,7 @@ import ApplicationEmployers from './components/Application/ApplicationEmployers'
 import SavedJobs from './components/SavedJobs/SavedJobs';
 import MessageJobSeekers from './components/Message/MessageJobSeekers';
 import ApplicationJobseekers from './components/Application/ApplicationJobseekers';
+import Profile from './components/Profile/Profile';
 
 function App() {
   return (
@@ -201,6 +202,24 @@ function App() {
             element={
               <Layout>
                 <ApplicationJobseekers />
+              </Layout>
+            }
+          />
+
+          {/* Profile Routes */}
+          <Route
+            path="/profile/:id"
+            element={
+              <Layout>
+                <Profile />
+              </Layout>
+            }
+          />
+          <Route
+            path="/profile-jobseeker/:id"
+            element={
+              <Layout>
+                <ProfileJobSeeker />
               </Layout>
             }
           />

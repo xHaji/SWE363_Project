@@ -1,86 +1,123 @@
-// Profile.js
-// Profile-JobSeeker.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import './Profile-JobSeeker.css';
 import Banner from '../../assets/banner.png';
+import DefaultAvatar from '../../assets/banner.png';
 
-const Profile = () => {
-  const skills = [
-    { name: 'Cybersecurity', rating: 4.0 },
-    { name: 'Web Development', rating: 3.5 },
-    { name: 'Adobe Photoshop', rating: 4.5 },
-    { name: 'Microsoft Excel', rating: 5.0 },
-  ];
+const ProfileJobSeeker = () => {
+  const { id } = useParams();
+  const [user, setUser] = useState({
+    profile: {
+      firstName: '',
+      lastName: '',
+      location: '',
+      about: '',
+      skills: [],
+      experience: [],
+      education: []
+    }
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const languages = [
-    { name: 'English', proficiency: 90 },
-    { name: 'Spanish', proficiency: 70 },
-    { name: 'French', proficiency: 50 },
-  ];
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/users/${id}`);
+        const data = await response.json();
+        
+        if (response.ok) {
+          setUser(data);
+        } else {
+          setError(data.message);
+        }
+        setLoading(false);
+      } catch (error) {
+        setError('Failed to fetch user data');
+        setLoading(false);
+      }
+    };
 
-  const studies = [
-    'Harvard University - Bachelor of Science',
-    'MIT - Master of Computer Science',
-    'Stanford University - PhD in Cybersecurity',
-  ];
+    fetchUser();
+  }, [id]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
-    <div className="profile-container">
-      {/* Banner Section */}
-      <div className="cover-image">
-        <img src={Banner} alt="Banner" className="cover-img" />
-        <div className="profile-image-wrapper">
-          <img 
-            src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=100&h=100&q=80" 
-            alt="Profile" 
-            className="profile-img" 
-          />
-        </div>
+    <div className="profile-jobseeker">
+      <div className="profile-header">
+        <h1>User Profile</h1>
       </div>
 
-      {/* Profile Content */}
-      <div className="profile-content">
-        {/* My Skills Section */}
-        <div className="skills-section">
-          <h2 className="section-title">My Skills</h2>
-          <div className="skills">
-            {skills.map((skill, index) => (
-              <div className="skill-circle" key={index}>
-                <div className="circle" style={{ '--percentage': `${(skill.rating / 5) * 100}%` }}>
-                  <span className="circle-text">{skill.rating}</span>
-                </div>
-                <p className="skill-name">{skill.name}</p>
-              </div>
-            ))}
+      <div className="banner-container">
+        <img src={Banner} alt="Profile banner" className="banner-image" />
+      </div>
+
+      <div className="profile-info-section">
+        <div className="profile-header">
+          <img 
+            src={user.profile?.avatar || DefaultAvatar} 
+            alt="Profile" 
+            className="profile-avatar" 
+          />
+          <div className="profile-details">
+            <h2>{user.profile?.firstName} {user.profile?.lastName}</h2>
+            <p className="location">� {user.profile?.location || 'SA'}</p>
           </div>
         </div>
 
-        {/* Languages and Studies Section */}
-        <div className="additional-info">
-          <div className="language-section">
-            <h2 className="section-title">Languages</h2>
-            {languages.map((language, index) => (
-              <div className="language-bar" key={index}>
-                <p>{language.name}</p>
-                <div className="bar">
-                  <div className="progress" style={{ width: `${language.proficiency}%` }}></div>
-                </div>
-              </div>
-            ))}
+        <div className="profile-description">
+          {/* About Section */}
+          <div className="description-section">
+            <h3>About</h3>
+            <p>{user.profile?.about || 'No information provided'}</p>
           </div>
 
-          <div className="studies-section">
-            <h2 className="section-title">Studies</h2>
-            <div className="studies">
-              {studies.map((study, index) => (
-                <p key={index}>{study}</p>
+          {/* Skills Section */}
+          {user.profile?.skills && user.profile.skills.length > 0 && (
+            <div className="description-section">
+              <h3>Skills</h3>
+              <div className="skills-list">
+                {user.profile.skills.map((skill, index) => (
+                  <span key={index} className="skill-tag">{skill}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Experience Section */}
+          {user.profile?.experience && user.profile.experience.length > 0 && (
+            <div className="description-section">
+              <h3>Experience</h3>
+              {user.profile.experience.map((exp, index) => (
+                <div key={index} className="experience-item">
+                  <h4>{exp.title}</h4>
+                  <p>{exp.company}</p>
+                  <p>{exp.years} years</p>
+                  <p>{exp.description}</p>
+                </div>
               ))}
             </div>
-          </div>
+          )}
+
+          {/* Education Section */}
+          {user.profile?.education && user.profile.education.length > 0 && (
+            <div className="description-section">
+              <h3>Education</h3>
+              {user.profile.education.map((edu, index) => (
+                <div key={index} className="education-item">
+                  <h4>{edu.degree}</h4>
+                  <p>{edu.school}</p>
+                  <p>{edu.year}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default Profile;
+export default ProfileJobSeeker;

@@ -73,8 +73,16 @@ const Header = ({ userType }) => {
   };
 
   const handleProfileClick = () => {
+    const userId = localStorage.getItem('userId');
+    
+    if (!userId) {
+      console.error('User ID not found');
+      navigate('/login');
+      return;
+    }
+
     if (userType === 'jobseeker') {
-      navigate('/profile-jobseeker', { state: { userType } });
+      navigate(`/profile-jobseeker/${userId}`);
     }
   };
 

@@ -1,68 +1,75 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './UserActivity.css';
 import banner from '../../assets/banner.png';
 
 const UserActivity = () => {
-  const stats = [
-    { title: 'Job Postings', value: 200, change: '+2.5%', trend: 'up' },
-    { title: 'Total Applications', value: 100, change: '-4.4%', trend: 'down' },
-    { title: 'No of Meetings', value: 50, change: '+1.5%', trend: 'up' },
-    { title: 'No of Hirings', value: 8, change: '+4.5%', trend: 'up' },
-  ];
+  const navigate = useNavigate();
+  const [employees, setEmployees] = useState([]);
+  const [jobSeekers, setJobSeekers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const employers = [
-    { name: 'Google Inc.', sees: '0 See', link: 'See more' },
-    { name: 'Microsoft Inc.', sees: '0 See', link: 'See More' },
-    { name: 'Aramco Inc.', sees: '0 See', link: 'See More' },
-  ];
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        // Fetch employees
+        const employeesResponse = await fetch('http://localhost:5000/api/users/employees');
+        const employeesData = await employeesResponse.json();
+        
+        // Fetch job seekers
+        const jobSeekersResponse = await fetch('http://localhost:5000/api/users/jobseekers');
+        const jobSeekersData = await jobSeekersResponse.json();
 
-  const jobSeekers = [
-    { name: 'Abosager', sees: '0 See', link: 'See more' },
-    { name: 'The guy', sees: '0 See', link: 'See more' },
-    { name: 'Programmer', sees: '0 See', link: 'See More' },
-  ];
+        setEmployees(employeesData);
+        setJobSeekers(jobSeekersData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        setError('Failed to fetch users');
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const handleEmployeeClick = (employeeId) => {
+    navigate(`/profile/${employeeId}`);
+  };
+
+  const handleJobSeekerClick = (seekerId) => {
+    navigate(`/profile-jobseeker/${seekerId}`);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="user-activity">
-      <div className="activity-header">
-      </div>
-
       <div className="banner">
-          <img src={banner} alt="JobMatch banner" className="banner" />
-        </div>
-
-
-      <div className="stats-container">
-        {stats.map((stat, index) => (
-          <div className="stat-card" key={index}>
-            <div className="stat-header">
-              <span>{stat.title}</span>
-              <div className={`trend-line ${stat.trend}`}>
-                {/* Add SVG trend line here */}
-              </div>
-            </div>
-            <div className="stat-content">
-              <h2>{stat.value}</h2>
-              <span className={`change ${stat.trend}`}>{stat.change}</span>
-            </div>
-          </div>
-        ))}
+        <img src={banner} alt="JobMatch banner" className="banner" />
       </div>
 
       <div className="users-grid">
         <div className="users-section">
           <h3>Users</h3>
-          <div className="user-type">Employers</div>
+          <div className="user-type">Employees</div>
           <div className="user-list">
-            {employers.map((employer, index) => (
-              <div className="user-item" key={index}>
+            {employees.map((employee) => (
+              <div className="user-item" key={employee._id}>
                 <div className="user-info">
                   <span className="star-icon">⭐</span>
-                  <span className="name">{employer.name}</span>
+                  <span className="name">{`${employee.profile.firstName} ${employee.profile.lastName}`}</span>
                 </div>
                 <div className="user-stats">
-                  <span className="sees">{employer.sees}</span>
-                  <a href="#" className="see-more">{employer.link}</a>
+                  <span className="sees">0 See</span>
+                  <button 
+                    className="see-more"
+                    onClick={() => handleEmployeeClick(employee._id)}
+                  >
+                    See more
+                  </button>
                 </div>
               </div>
             ))}
@@ -73,15 +80,20 @@ const UserActivity = () => {
           <h3>Users</h3>
           <div className="user-type">Job Seekers</div>
           <div className="user-list">
-            {jobSeekers.map((seeker, index) => (
-              <div className="user-item" key={index}>
+            {jobSeekers.map((seeker) => (
+              <div className="user-item" key={seeker._id}>
                 <div className="user-info">
                   <span className="star-icon">⭐</span>
-                  <span className="name">{seeker.name}</span>
+                  <span className="name">{`${seeker.profile.firstName} ${seeker.profile.lastName}`}</span>
                 </div>
                 <div className="user-stats">
-                  <span className="sees">{seeker.sees}</span>
-                  <a href="#" className="see-more">{seeker.link}</a>
+                  <span className="sees">0 See</span>
+                  <button 
+                    className="see-more"
+                    onClick={() => handleJobSeekerClick(seeker._id)}
+                  >
+                    See more
+                  </button>
                 </div>
               </div>
             ))}

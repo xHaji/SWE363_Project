@@ -10,8 +10,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, 'Password is required'],
-    minlength: 6
+    required: [true, 'Password is required']
   },
   userType: {
     type: String,
@@ -19,25 +18,31 @@ const userSchema = new mongoose.Schema({
     enum: ['admin', 'employee', 'jobseeker']
   },
   profile: {
-    firstName: { type: String },
-    lastName: { type: String },
-    phone: { type: String },
-    company: { type: String }, // for employees
-    position: { type: String }, // for employees
-    resume: { type: String },  // for jobseekers (URL to resume)
-    skills: [String],         // for jobseekers
-    experience: [{ 
+    firstName: String,
+    lastName: String,
+    phone: String,
+    about: String,
+    skills: [String],
+    languages: [String],
+    location: String,
+    company: String,
+    position: String,
+    education: {
+      degree: String,
+      school: String,
+      year: String,
+      description: String
+    },
+    experience: [{
       title: String,
       company: String,
-      years: Number
+      years: Number,
+      description: String
     }]
   },
   createdAt: {
     type: Date,
     default: Date.now
-  },
-  lastLogin: {
-    type: Date
   }
 });
 

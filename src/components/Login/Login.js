@@ -29,6 +29,7 @@ function Login() {
         // Store token in localStorage
         localStorage.setItem('token', data.token);
         localStorage.setItem('userType', data.userType);
+        localStorage.setItem('userId', data.userId);
 
         // Redirect based on user type
         switch (data.userType) {
