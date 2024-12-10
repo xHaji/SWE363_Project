@@ -40,6 +40,38 @@ const userSchema = new mongoose.Schema({
       description: String
     }]
   },
+  preferences: {
+    region: {
+      type: String,
+      enum: ['SA', 'UK', 'USA'],
+      default: 'SA'
+    },
+    darkMode: {
+      type: Boolean,
+      default: false
+    },
+    followedCompanies: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }]
+  },
+  notifications: [{
+    title: String,
+    message: String,
+    type: {
+      type: String,
+      enum: ['job', 'interview', 'application'],
+    },
+    isRead: {
+      type: Boolean,
+      default: false
+    },
+    link: String,
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
+  }],
   createdAt: {
     type: Date,
     default: Date.now

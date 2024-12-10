@@ -1,59 +1,156 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaGlobe, FaSearch, FaBell, FaCog, FaUser } from 'react-icons/fa';
+import { FaGlobe, FaSearch, FaBell, FaCog, FaUser, FaGlobeAmericas,FaTimes, FaChevronDown } from 'react-icons/fa';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import './Header.css';
 import logo from '../../assets/applogo.png';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { countries, getCountryByCode } from '../CL';
 
 const Header = ({ userType }) => {
+  // State management
   const [isGlobeDropdownOpen, setGlobeDropdownOpen] = useState(false);
-  const [isRegionDropdownOpen, setRegionDropdownOpen] = useState(false);
   const [isNotificationDropdownOpen, setNotificationDropdownOpen] = useState(false);
-  const [selectedRegion, setSelectedRegion] = useState('SA');
-  const [isDarkMode, setDarkMode] = useState(false);
+  const [showCountryList, setShowCountryList] = useState(false);
+  const [selectedRegion, setSelectedRegion] = useState(() => 
+    localStorage.getItem('userRegion') || 'SA'
+  );
+  const [isDarkMode, setDarkMode] = useState(() => 
+    localStorage.getItem('darkMode') === 'true'
+  );
+  const [notifications, setNotifications] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const dropdownContainerRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Initial preferences load
   useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (
-        dropdownContainerRef.current &&
-        !dropdownContainerRef.current.contains(event.target)
-      ) {
-        setGlobeDropdownOpen(false);
-        setRegionDropdownOpen(false);
-        setNotificationDropdownOpen(false);
-      }
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+
+    fetch(`/api/users/${userId}`)
+      .then(res => res.json())
+      .then(data => {
+        const region = data.preferences?.region || localStorage.getItem('userRegion') || 'SA';
+        const darkMode = data.preferences?.darkMode || localStorage.getItem('darkMode') === 'true';
+        
+        setSelectedRegion(region);
+        setDarkMode(darkMode);
+        
+        localStorage.setItem('userRegion', region);
+        localStorage.setItem('darkMode', darkMode.toString());
+        
+        document.body.classList.toggle('dark-mode', darkMode);
+      })
+      .catch(error => {
+        console.error('Error fetching preferences:', error);
+        const savedRegion = localStorage.getItem('userRegion') || 'SA';
+        const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+        
+        setSelectedRegion(savedRegion);
+        setDarkMode(savedDarkMode);
+        document.body.classList.toggle('dark-mode', savedDarkMode);
+      });
+  }, []);
+
+  // Load notifications
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+
+    const fetchNotifications = () => {
+      fetch(`/api/users/${userId}/notifications`)
+        .then(res => res.json())
+        .then(setNotifications)
+        .catch(error => console.error('Error fetching notifications:', error));
     };
 
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
+    fetchNotifications();
+    const intervalId = setInterval(fetchNotifications, 300000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  // Handle outside clicks
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownContainerRef.current && !dropdownContainerRef.current.contains(event.target)) {
+        setGlobeDropdownOpen(false);
+        setNotificationDropdownOpen(false);
+        setShowCountryList(false);
+        setSearchTerm('');
+      }
     };
+    const formatNotificationTime = (createdAt) => {
+      const now = new Date();
+      const notificationDate = new Date(createdAt);
+      const diffInMinutes = Math.floor((now - notificationDate) / (1000 * 60));
+    
+      if (diffInMinutes < 60) {
+        return `${diffInMinutes}m ago`;
+      } else if (diffInMinutes < 1440) {
+        const hours = Math.floor(diffInMinutes / 60);
+        return `${hours}h ago`;
+      } else {
+        const days = Math.floor(diffInMinutes / 1440);
+        return `${days}d ago`;
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
   const toggleDropdown = (dropdownType) => {
-    setGlobeDropdownOpen(dropdownType === 'globe' ? !isGlobeDropdownOpen : false);
-    setNotificationDropdownOpen(
-      dropdownType === 'notification' ? !isNotificationDropdownOpen : false
-    );
-    setRegionDropdownOpen(
-      dropdownType !== 'globe' && dropdownType !== 'notification'
-        ? isRegionDropdownOpen
-        : false
-    );
+    if (dropdownType === 'globe') {
+      setGlobeDropdownOpen(!isGlobeDropdownOpen);
+      setNotificationDropdownOpen(false);
+      if (!isGlobeDropdownOpen) {
+        setShowCountryList(false);
+        setSearchTerm('');
+      }
+    } else if (dropdownType === 'notification') {
+      setNotificationDropdownOpen(!isNotificationDropdownOpen);
+      setGlobeDropdownOpen(false);
+      setShowCountryList(false);
+      setSearchTerm('');
+    }
   };
 
   const toggleDarkMode = () => {
-    setDarkMode(!isDarkMode);
-    document.body.classList.toggle('dark-mode', !isDarkMode);
+    const newDarkMode = !isDarkMode;
+    setDarkMode(newDarkMode);
+    localStorage.setItem('darkMode', newDarkMode.toString());
+    document.body.classList.toggle('dark-mode', newDarkMode);
+
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      fetch(`/api/users/${userId}/preferences`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ darkMode: newDarkMode }),
+      }).catch(error => console.error('Error updating dark mode:', error));
+    }
   };
 
-  const handleRegionSelect = (region) => {
-    setSelectedRegion(region);
-    setRegionDropdownOpen(false);
+  const handleRegionSelect = (countryCode) => {
+    setSelectedRegion(countryCode);
+    localStorage.setItem('userRegion', countryCode);
+    // Close the country list and show the change button again
+    setShowCountryList(false);
+    setSearchTerm('');
+  
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      fetch(`/api/users/${userId}/preferences`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ region: countryCode }),
+      }).catch(error => console.error('Error updating region:', error));
+    }
   };
 
   const handleSettingsClick = () => {
@@ -83,6 +180,28 @@ const Header = ({ userType }) => {
 
     if (userType === 'jobseeker') {
       navigate(`/profile-jobseeker/${userId}`);
+    }
+  };
+
+  const markNotificationAsRead = async (notificationId, e) => {
+    e.stopPropagation();
+    
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+
+    try {
+      await fetch(`/api/users/${userId}/notifications/${notificationId}/read`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      setNotifications(notifications.map(notif => 
+        notif._id === notificationId ? { ...notif, isRead: true } : notif
+      ));
+    } catch (error) {
+      console.error('Error marking notification as read:', error);
     }
   };
 
@@ -140,28 +259,64 @@ const Header = ({ userType }) => {
         <FaGlobe className="icon" onClick={() => toggleDropdown('globe')} />
         {isGlobeDropdownOpen && (
           <div className="dropdown-menu">
-            <div
-              className="dropdown-item region-toggle"
-              onClick={() => setRegionDropdownOpen(!isRegionDropdownOpen)}
-            >
-              <span>Region: {selectedRegion}</span>
-              <MdKeyboardArrowRight
-                className={`arrow-icon ${isRegionDropdownOpen ? 'open' : ''}`}
-              />
-            </div>
-            {isRegionDropdownOpen && (
-              <div className="region-list">
-                <div className="region-item" onClick={() => handleRegionSelect('SA')}>
-                  SA
+            <div className="selected-country">
+  <div className="current-country">
+    <FaGlobeAmericas className="country-icon" />
+    <span>{getCountryByCode(selectedRegion)?.name || 'Select Country'}</span>
+  </div>
+  {showCountryList ? (
+    <button 
+      className="change-country-btn close"
+      onClick={() => {
+        setShowCountryList(false);
+        setSearchTerm('');
+      }}
+    >
+      <span>Close</span>
+      <FaTimes />
+    </button>
+  ) : (
+    <button 
+      className="change-country-btn"
+      onClick={() => setShowCountryList(true)}
+    >
+      <span>Change Country</span>
+      <FaChevronDown />
+    </button>
+  )}
+</div>
+            
+            {showCountryList && (
+              <>
+                <div className="country-search">
+                  <input
+                    type="text"
+                    placeholder="Search countries..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    autoFocus
+                  />
+                  <FaSearch className="search-icon" />
                 </div>
-                <div className="region-item" onClick={() => handleRegionSelect('UK')}>
-                  UK
+                <div className="country-list">
+                  {countries
+                    .filter(country =>
+                      country.name.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
+                    .map(country => (
+                      <div
+                        key={country.code}
+                        className={`country-item ${selectedRegion === country.code ? 'selected' : ''}`}
+                        onClick={() => handleRegionSelect(country.code)}
+                      >
+                        <FaGlobeAmericas className="country-icon" />
+                        <span>{country.name}</span>
+                      </div>
+                    ))}
                 </div>
-                <div className="region-item" onClick={() => handleRegionSelect('USA')}>
-                  USA
-                </div>
-              </div>
+              </>
             )}
+            
             <div className="dropdown-item mode-toggle">
               <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
               <div
@@ -173,35 +328,81 @@ const Header = ({ userType }) => {
             </div>
           </div>
         )}
+
         {(userType === 'admin' || userType === 'jobseeker') && (
           <FaSearch 
             className="icon" 
             onClick={handleSearchClick}
           />
         )}
+
         {(userType === 'jobseeker' || userType === 'employee') && (
           <>
             <FaBell className="icon" onClick={() => toggleDropdown('notification')} />
             {isNotificationDropdownOpen && (
-              <div className="notification-menu">
-                <div className="notification-item">
-                  <strong>Job Posted</strong>
-                  <p>
-                    Amazon company that you are following have posted a new job.
-                  </p>
-                  <button className="notification-button" onClick={() => window.location.href = '/search-jobseeker'}>Go to the job</button>                </div>
-                <div className="notification-item">
-                  <strong>Interview Reminder</strong>
-                  <p>You have a scheduled interview today at 8 pm.</p>
-                </div>
-                <div className="notification-item">
-                  <strong>Application Update</strong>
-                  <p>Your application for Aramco Company has been rejected.</p>
-                </div>
+  <div className="notification-menu">
+    <div className="notification-header">
+      <h3>Notifications</h3>
+      {notifications.some(n => !n.isRead) && (
+        <button 
+          className="mark-all-read"
+          onClick={markAllNotificationsAsRead}
+        >
+          Mark all as read
+        </button>
+      )}
+    </div>
+    
+    {notifications.length === 0 ? (
+      <div className="notification-item empty">
+        <p>No new notifications</p>
+      </div>
+    ) : (
+      <div className="notification-list">
+        {notifications
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .map((notification) => (
+            <div 
+              key={notification._id} 
+              className={`notification-item ${notification.isRead ? 'read' : ''}`}
+              onClick={() => {
+                if (notification.link) {
+                  navigate(notification.link);
+                  markNotificationAsRead(notification._id);
+                }
+              }}
+            >
+              <div className="notification-icon">
+                {notification.type === 'job' && <FaBriefcase />}
+                {notification.type === 'interview' && <FaCalendar />}
+                {notification.type === 'application' && <FaFileAlt />}
               </div>
-            )}
+              <div className="notification-content">
+                <strong>{notification.title}</strong>
+                <p>{notification.message}</p>
+                <span className="notification-time">
+                  {formatNotificationTime(notification.createdAt)}
+                </span>
+              </div>
+              {!notification.isRead && (
+                <div 
+                  className="unread-indicator"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    markNotificationAsRead(notification._id);
+                  }}
+                />
+              )}
+            </div>
+          ))
+        }
+      </div>
+    )}
+  </div>
+)}
           </>
         )}
+
         {(userType === 'jobseeker' || userType === 'employee') && (
           <FaCog 
             className="icon" 
